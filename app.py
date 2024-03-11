@@ -50,12 +50,13 @@ def precipitation():
     # Calculate the date one year from the last date in the dataset
     last_date = session.query(func.max(Measurement.date)).scalar()
     last_date = datetime.strptime(last_date, '%Y-%m-%d')
-    one_year_ago = last_date - timedelta(days=365)
+    one_year_ago = last_date.replace(year=last_date.year - 1).strftime('%Y-%m-%d')
 
     # Perform a query to retrieve the data and precipitation scores for the last 12 months without passing the date as a variable
-    results = session.query(Measurement.date, Measurement.prcp).\
-        filter(Measurement.date >= one_year_ago).\
-        filter(Measurement.date <= last_date).all()
+    results = session.query(Measurement.date, Measurement.prcp).filter(
+        Measurement.date >= one_year_ago
+    ).order_by(Measurement.date).all()
+    
 
     # Convert the query results to a dictionary with date as the key and prcp as the value
     precipitation_dict = {date: prcp for date, prcp in results}
@@ -76,14 +77,17 @@ def tobs():
     # Query the most active station
     most_active_station = session.query(Measurement.station).group_by(Measurement.station).order_by(func.count().desc()).first()[0]
     
+    # Get the most recent date for the most active station
+    most_recent_date = session.query(func.max(Measurement.date)).filter(Measurement.station == most_active_station).scalar()
+    most_recent_date = datetime.strptime(most_recent_date, '%Y-%m-%d')
     # Calculate the date one year from the last date in the dataset
-    last_date = session.query(func.max(Measurement.date)).scalar()
-    last_date = datetime.strptime(last_date, '%Y-%m-%d')
-    one_year_ago = last_date - timedelta(days=365)
+    one_year_ago = most_recent_date.replace(year=most_recent_date.year - 1)
     
     # Query temperature observations for the most active station for the last year
-    results = session.query(Measurement.date, Measurement.tobs).filter(Measurement.station == most_active_station, Measurement.date >= one_year_ago).all()
-    
+    results = session.query(Measurement.date, Measurement.tobs).filter(
+        Measurement.station == most_active_station,
+        Measurement.date >= one_year_ago
+    ).order_by(Measurement.date).all()
     # Convert the query results to a list of dictionaries
     tobs_list = [{"Date": date, "Temperature": tobs} for date, tobs in results]
     
