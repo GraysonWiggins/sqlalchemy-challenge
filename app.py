@@ -51,13 +51,15 @@ def precipitation():
     last_date = session.query(func.max(Measurement.date)).scalar()
     last_date = datetime.strptime(last_date, '%Y-%m-%d')
     one_year_ago = last_date - timedelta(days=365)
-    
-    # Perform a query to retrieve the data and precipitation scores for the last 12 months
-    results = session.query(Measurement.date, Measurement.prcp).filter(Measurement.date >= one_year_ago).all()
-    
+
+    # Perform a query to retrieve the data and precipitation scores for the last 12 months without passing the date as a variable
+    results = session.query(Measurement.date, Measurement.prcp).\
+        filter(Measurement.date >= one_year_ago).\
+        filter(Measurement.date <= last_date).all()
+
     # Convert the query results to a dictionary with date as the key and prcp as the value
     precipitation_dict = {date: prcp for date, prcp in results}
-    
+
     return jsonify(precipitation_dict)
 
 @app.route('/api/v1.0/stations')
