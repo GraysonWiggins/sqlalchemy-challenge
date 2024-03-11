@@ -5,15 +5,18 @@ This project involves analyzing climate data for Hawaii using SQLAlchemy, Flask,
 
 ## Project Structure
 The project directory `sqlalchemy-challenge` contains the following files and folders:
-- `app.py`: Flask application for the project
-- `climate_starter.ipynb`: Jupyter notebook with the initial climate analysis
-- `resources/`: Folder containing data files
-  - `hawaii.sqlite`: SQLite database file
-  - `hawaii_measurements.csv`: CSV file with measurements data
-  - `hawaii_stations.csv`: CSV file with stations data
-- `.gitignore`: File specifying which files to ignore in version control
-- `README.md`: This file
 
+- `SurfsUp/`: Folder containing additional project files
+  - `app.py`: Flask application for the project
+  - `climate_starter.ipynb`: Jupyter notebook with the initial climate analysis
+  - `Resources/`: Folder containing data files
+    - `hawaii.sqlite`: SQLite database file
+    - `hawaii_measurements.csv`: CSV file with measurements data
+    - `hawaii_stations.csv`: CSV file with stations data
+
+- `.gitignore`: File specifying which files to ignore in version control
+- `README.md`: This file provides information about the project structure
+- 
 ## Dependencies
 The project requires the following dependencies:
 - sqlalchemy
