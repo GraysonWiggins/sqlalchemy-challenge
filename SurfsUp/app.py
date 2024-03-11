@@ -6,14 +6,26 @@ from sqlalchemy import create_engine, func
 
 from flask import Flask, jsonify
 from datetime import datetime, timedelta
-
-# #################################################
-# # Database Setup
-# #################################################
-engine = create_engine("sqlite:///Resources/hawaii.sqlite")
+import os
 
 
-# # reflect an existing database into a new model
+
+# Get the directory of the script
+script_dir = os.path.dirname(__file__)
+db_filename = "hawaii.sqlite"
+
+
+# Construct the relative path to the database file
+db_path = os.path.join(script_dir, "Resources", db_filename)
+
+# Create the engine using the relative path to the database file
+engine = create_engine(f"sqlite:///{db_path}")
+
+# # #################################################
+# # # Database Setup
+# # #################################################
+
+# # # reflect an existing database into a new model
 Base = automap_base()
 Base.prepare(engine, reflect=True)
 
