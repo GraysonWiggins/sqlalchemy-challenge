@@ -16,7 +16,7 @@ The project directory `sqlalchemy-challenge` contains the following files and fo
 
 - `.gitignore`: File specifying which files to ignore in version control
 - `README.md`: This file provides information about the project structure
-- 
+  
 ## Dependencies
 The project requires the following dependencies:
 - sqlalchemy
@@ -24,7 +24,8 @@ The project requires the following dependencies:
 - matplotlib
 - numpy
 - pandas
-
+- os
+  
 ## References
 - Menne, M.J., I. Durre, R.S. Vose, B.E. Gleason, and T.G. Houston, 2012: An overview of the Global Historical Climatology Network-Daily Database. Journal of Atmospheric and Oceanic Technology, 29, 897-910. [Link to the article](https://journals.ametsoc.org/view/journals/atot/29/7/jtech-d-11-00103_1.xml)
 
@@ -50,3 +51,4 @@ import numpy as np
 import pandas as pd
 import datetime as dt
 import warnings
+import os
